@@ -1,17 +1,17 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
-// to verify token and get user data from token in req.user set in authMiddleware below
+//Decoding and verifying JWT tokens
 const authMiddleware = asyncHandler(async (req, res, next) => {
   let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
+  if (req?.headers?.authorization?.startsWith("Bearer")) {
     try {
       token = req.headers.authorization.split(" ")[1];
+
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = await User.findById(decoded.id).select("-password");
+
+      req.user = await User.findById(decoded?.id);
+
       next();
     } catch (error) {
       res.status(401);
