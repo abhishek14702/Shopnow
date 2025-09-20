@@ -25,6 +25,8 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
 });
 // to verify admin user through token data in req.user set in authMiddleware above
 const isAdmin = asyncHandler(async (req, res, next) => {
+  console.log("req.user", req.user);
+  console.log("req.user.mail", req.user.email);
   const { email } = req.user;
   const adminUser = await User.findOne({ email: email });
   if (adminUser.role !== "admin") {

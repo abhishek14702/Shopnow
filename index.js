@@ -7,6 +7,8 @@ const dotenv = require("dotenv").config();
 const dbConnect = require("./config/dbConnect");
 const { notFound, errorHandler } = require("./middlewares/errorHandler");
 const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
+app.use(morgan("dev"));
 app.use(cookieParser());
 dbConnect();
 app.use(express.json());
